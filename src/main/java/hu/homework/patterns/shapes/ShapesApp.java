@@ -14,6 +14,7 @@ public final class ShapesApp {
 
     public static void main(String[] args) {
         if (args.length == 0) {
+            // --- Composite + Flyweight demo
             ShapeGroup demo = new ShapeGroup("Composite + Flyweight Demo")
                     .add(new RectangleShape(14, 4, BrushFactory.get('#', true)))
                     .add(new TrapezoidShape(6, 16, 5, BrushFactory.get('+', false)))
@@ -23,6 +24,19 @@ public final class ShapesApp {
                     .add(new EllipseShape(21, 11, BrushFactory.get('.', false)));
             System.out.println("Flyweight cache size: " + BrushFactory.cacheSize());
             demo.draw();
+
+            // --- Command demo (Invoker queues draw commands and executes them)
+            System.out.println("\n== COMMAND DEMO ==");
+            hu.homework.patterns.shapes.command.Invoker invoker =
+                    new hu.homework.patterns.shapes.command.Invoker()
+                            .add(new hu.homework.patterns.shapes.command.DrawShapeCommand(
+                                    new RectangleShape(12, 4, BrushFactory.get('#', true))))
+                            .add(new hu.homework.patterns.shapes.command.DrawShapeCommand(
+                                    new RhombusShape(9, BrushFactory.get('@', true))))
+                            .add(new hu.homework.patterns.shapes.command.DrawShapeCommand(
+                                    new EllipseShape(17, 7, BrushFactory.get('.', false))));
+            invoker.runAll();
+
             return;
         }
 
