@@ -17,6 +17,17 @@ public final class ShapesApp {
         AsciiRenderer.pyramid(6, '*', false, false);
         AsciiRenderer.pyramid(6, '^', true, true);
         AsciiRenderer.ellipse(21, 11, '.', false);
+
+        // --- 4.3 Composite + Flyweight demo: use concrete shape classes
+        ShapeGroup demo = new ShapeGroup("Composite + Flyweight Demo")
+                .add(new RectangleShape(14, 4, BrushFactory.get('#', true)))
+                .add(new TrapezoidShape(6, 16, 5, BrushFactory.get('+', false)))
+                .add(new RhombusShape(9, BrushFactory.get('@', true)))
+                .add(new PyramidShape(6, false, BrushFactory.get('*', false)))
+                .add(new PyramidShape(6, true,  BrushFactory.get('^', true)))
+                .add(new EllipseShape(21, 11, BrushFactory.get('.', false)));
+
+        demo.draw();
     }
 }
 
